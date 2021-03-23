@@ -25,4 +25,12 @@ private:
 
 public:
 	ABasePawn();
+
+protected:
+
+	void RotateTurretFunction(FVector LookAtTarget);
+
+	void Fire();
+
+	void HandleDestruction();
 };

@@ -23,5 +23,22 @@ ABasePawn::ABasePawn()
 	ProjectileSpawnPoint->SetupAttachment(TurretMesh);
 }
 
+void ABasePawn::RotateTurretFunction(FVector LookAtTarget)
+{
+	FVector LookAtTargetCleaned = FVector(LookAtTarget.X, LookAtTarget.Y, TurretMesh->GetComponentLocation().Z);
+	FVector StartLocation = TurretMesh->GetComponentLocation();
+	FRotator TurretRotation = FVector(LookAtTargetCleaned - StartLocation).Rotation();
+	TurretMesh->SetWorldRotation(TurretRotation);
+}
+
+void ABasePawn::Fire()
+{
+}
+
+void ABasePawn::HandleDestruction()
+{
+}
+
+
 
 
