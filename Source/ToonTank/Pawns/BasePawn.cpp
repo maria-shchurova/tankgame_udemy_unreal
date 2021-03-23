@@ -3,7 +3,7 @@
 
 #include "BasePawn.h"
 #include "Components/CapsuleComponent.h"
-
+#include "ToonTank/ProjectileBase.h"
 // Sets default values
 ABasePawn::ABasePawn()
 {
@@ -20,7 +20,7 @@ ABasePawn::ABasePawn()
 	TurretMesh->SetupAttachment(BaseMesh);
 
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Spawn Point"));
-	ProjectileSpawnPoint->SetupAttachment(TurretMesh);
+	ProjectileSpawnPoint->AttachTo(TurretMesh);
 }
 
 void ABasePawn::RotateTurretFunction(FVector LookAtTarget)
@@ -33,6 +33,13 @@ void ABasePawn::RotateTurretFunction(FVector LookAtTarget)
 
 void ABasePawn::Fire()
 {
+	if (ProjectileClass)
+	{
+		FVector SpawnLocation = ProjectileSpawnPoint->GetComponentLocation();
+		FRotator SpawnRotation = ProjectileSpawnPoint->GetComponentRotation();
+		AProjectileBase* TempProjectile = GetWorld()->SpawnActor<AProjectileBase>(ProjectileClass, SpawnLocation, SpawnRotation);
+		TempProjectile->SetOwner(this);
+	}
 }
 
 void ABasePawn::HandleDestruction()
