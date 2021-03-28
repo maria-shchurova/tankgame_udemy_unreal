@@ -3,7 +3,7 @@
 
 #include "BasePawn.h"
 #include "Components/CapsuleComponent.h"
-#include "ToonTank/ProjectileBase.h"
+#include "ToonTank/Actors/BulletBase.h"
 // Sets default values
 ABasePawn::ABasePawn()
 {
@@ -37,10 +37,16 @@ void ABasePawn::Fire()
 {
 	if (ProjectileClass)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("ProjectileClass found"));
+
 		FVector SpawnLocation = ProjectileSpawnPoint->GetComponentLocation();
 		FRotator SpawnRotation = ProjectileSpawnPoint->GetComponentRotation();
-		AProjectileBase* TempProjectile = GetWorld()->SpawnActor<AProjectileBase>(ProjectileClass, SpawnLocation, SpawnRotation);
+		ABulletBase* TempProjectile = GetWorld()->SpawnActor<ABulletBase>(ProjectileClass, SpawnLocation, SpawnRotation);
 		TempProjectile->SetOwner(this);
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("ProjectileClass was not found"));
+
 	}
 }
 

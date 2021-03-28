@@ -4,15 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "ProjectileBase.generated.h"
+#include "Components/CapsuleComponent.h"
+#include "BulletBase.generated.h"
 
 class UProjectileMovementComponent;
 UCLASS()
-class TOONTANK_API AProjectileBase : public AActor
+
+class TOONTANK_API ABulletBase : public AActor
 {
 	GENERATED_BODY()
 
 private:
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	//	UCapsuleComponent* CapsuleComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 		UProjectileMovementComponent* ProjectileMovement;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
@@ -27,13 +31,10 @@ private:
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
-public:
-	// Sets default values for this actor's properties
-	AProjectileBase();
+public:	
+	ABulletBase();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
 
 };
